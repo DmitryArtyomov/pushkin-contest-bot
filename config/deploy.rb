@@ -9,6 +9,8 @@ set :rvm_type, :user
 set :rvm_ruby_version, '2.3.1'
 set :deploy_to, '/var/www/apps/pushkin-contest-bot'
 
+set :pty, false
+
 namespace :foreman do
   desc 'Start server'
   task :start do
@@ -60,6 +62,7 @@ namespace :deploy do
       execute "mkdir  /var/www/apps/#{application}/log/"
       execute "mkdir  /var/www/apps/#{application}/socket/"
       execute "mkdir #{shared_path}/system"
+      execute "mkdir #{shared_path}/log"
       sudo "ln -s /var/log/upstart /var/www/log/upstart"
 
       upload!('shared/database.yml', "#{shared_path}/config/database.yml")
