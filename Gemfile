@@ -34,6 +34,8 @@ gem 'sidekiq'
 gem 'slim-rails'
 gem 'bootstrap-sass'
 
+gem 'foreman'
+
 group :production do
   gem 'unicorn'
 end
