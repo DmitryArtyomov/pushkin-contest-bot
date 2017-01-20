@@ -69,8 +69,8 @@ namespace :deploy do
 
       upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
       sudo 'stop nginx'
-      sudo "rm -f /usr/local/nginx/conf/nginx.conf"
-      sudo "ln -s #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
+      sudo "rm -f /etc/nginx/nginx.conf"
+      sudo "ln -s #{shared_path}/nginx.conf /etc/nginx/nginx.conf"
       sudo 'start nginx'
 
       within release_path do
