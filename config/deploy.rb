@@ -6,7 +6,7 @@ set :repo_url, "git@github.com:DmitryArtyomov/pushkin-contest-bot.git"
 
 application = 'pushkin-contest-bot'
 set :rvm_type, :user
-set :rvm_ruby_version, '2.3.1p112'
+set :rvm_ruby_version, '2.3.1'
 set :deploy_to, '/var/www/apps/pushkin-contest-bot'
 
 namespace :foreman do
