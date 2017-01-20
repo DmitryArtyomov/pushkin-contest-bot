@@ -1,2 +1,2 @@
-:pidfile: /var/www/apps/pushkin-contest-bot/current/tmp/pids/sidekiq.pid
+:pidfile: /var/www/apps/pushkin-contest-bot/current/tmp/sidekiq.pid
 :logfile: /var/www/apps/pushkin-contest-bot/log/sidekiq.log
