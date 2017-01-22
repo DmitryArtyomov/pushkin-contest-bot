@@ -12,7 +12,7 @@
     tbody
       - @tasks.each do |task|
         tr
-          td = task['question']
+          td = simple_format(task['question'])
           td = task['task_id']
           td = task['level']
           td = Time.at(task['time_received'].to_i).getlocal('+03:00').strftime('%d.%m.%Y %H:%M:%S')
