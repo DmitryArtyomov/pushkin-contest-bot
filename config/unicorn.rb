@@ -1,4 +1,4 @@
-worker_processes 2
+worker_processes 1
 
 working_directory "/var/www/apps/pushkin-contest-bot/current" # available in 0.94.0+
 
