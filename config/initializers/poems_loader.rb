@@ -33,3 +33,11 @@ $poems.each_with_index do |poem, poem_index|
     end
   end
 end
+
+$level_6 = {}
+
+$poems.each_with_index do |poem, poem_index|
+  poem[1].each_with_index do |line, line_index|
+    $level_6[line.remove_all_punctuation.chars.sort.join] = [poem_index, line_index]
+  end
+end

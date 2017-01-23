@@ -66,7 +66,9 @@ class QuizController < ApplicationController
 
         answer = source_word + ',' + replaced_word
       end
-
+    when 6,7
+      poem_index = $level_6[question.remove_all_punctuation.chars.sort.join]
+      answer = $poems[poem_index[0]][1][poem_index[1]] unless poem_index.nil?
     end
 
     send_answer(answer, task_id)
