@@ -19,7 +19,7 @@ class QuizController < ApplicationController
     when 3, 4
       resulting_indexes = nil
       answers = []
-      question.split("\n").each do |question_line|        
+      question.split("\n").each do |question_line|
         if resulting_indexes.nil?
           resulting_indexes = find_poem_line(question_line)
           answers.push(find_swapped_word(question_line, resulting_indexes))
@@ -29,6 +29,44 @@ class QuizController < ApplicationController
         end
       end
       answer = answers.join(',')
+    when 5
+      word_indexes = []      
+      split_question = question.remove_punctuation_but_spaces.split(' ')
+      # Find poems indexes for each word
+      split_question.each do |question_word|
+        word_indexes.push($level_2[question_word])
+      end
+      resulting_indexes = []
+      # For each word try to find poem which includes every other word      
+      word_indexes.each do |word_index|
+        temp = []
+        word_indexes.each do |index|
+          temp.push(index)
+        end
+        temp.delete(word_index)
+        res = nil
+        temp.each do |temp_index|
+          if res.nil?
+            res = temp_index
+          else
+            res &= temp_index
+          end
+        end
+        resulting_indexes.push(res)
+      end
+      # The word where it wouldn't be nil - the replaced word
+      arr_index = resulting_indexes.find_index { |x| !x.empty? }
+      unless arr_index.nil?
+        replaced_word = split_question[arr_index]
+
+        poem_index = resulting_indexes[arr_index][0][0]
+        poem_line_index = resulting_indexes[arr_index][0][1]
+        source_poem = $poems[poem_index][1][poem_line_index]
+        source_word = source_poem.remove_punctuation_but_spaces.split(' ')[arr_index]
+
+        answer = source_word + ',' + replaced_word
+      end
+
     end
 
     send_answer(answer, task_id)
