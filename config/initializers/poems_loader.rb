@@ -41,3 +41,11 @@ $poems.each_with_index do |poem, poem_index|
     $level_6[line.remove_all_punctuation.chars.sort.join] = [poem_index, line_index]
   end
 end
+
+$level_8 = {}
+
+$level_6.each do |poem_line, indexes|
+  line_length = poem_line.length
+  $level_8[line_length] = [] if $level_8[line_length].nil?
+  $level_8[line_length].push([poem_line, indexes])
+end

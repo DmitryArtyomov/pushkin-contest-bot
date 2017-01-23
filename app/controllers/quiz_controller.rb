@@ -37,7 +37,7 @@ class QuizController < ApplicationController
         word_indexes.push($level_2[question_word])
       end
       resulting_indexes = []
-      # For each word try to find poem which includes every other word      
+      # For each word try to find poem which includes all words except this
       word_indexes.each do |word_index|
         temp = []
         word_indexes.each do |index|
@@ -69,11 +69,27 @@ class QuizController < ApplicationController
     when 6,7
       poem_index = $level_6[question.remove_all_punctuation.chars.sort.join]
       answer = $poems[poem_index[0]][1][poem_index[1]] unless poem_index.nil?
+    when 8
+      question_sorted = question.remove_all_punctuation.chars.sort.join
+      question_length = question_sorted.length
+      $level_8[question_length].each do |line_and_indexes|
+        if one_different_char?(question_sorted, line_and_indexes[0])
+          answer = $poems[line_and_indexes[1][0]][1][line_and_indexes[1][1]]
+          break;
+        end
+      end
+
     end
 
     send_answer(answer, task_id)
     SaveTaskWorker.perform_async(question, task_id, level, time_received, answer)
-  end  
+  end
+
+  def one_different_char?(str, other)
+    other_str = other.dup
+    str.chars{|char| other_str.sub!(char, '')}
+    other_str.size == 1
+  end
   
   def find_swapped_word(question, indexes)
     answer = nil    
